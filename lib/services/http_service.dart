@@ -34,4 +34,6 @@ class HTTPService {
       //
     }
   }
+
+  get(String s, {required Map<int, int> query}) {}
 }

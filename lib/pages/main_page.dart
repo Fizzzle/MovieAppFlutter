@@ -3,6 +3,8 @@ import 'dart:ui';
 // Пакеты
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie/controller/main_page_data_controller.dart';
+import 'package:movie/model/main_page_data.dart';
 
 // Виджеты
 import '../widgets/movie_tile.dart';
@@ -11,10 +13,20 @@ import '../widgets/movie_tile.dart';
 import '../model/search_category.dart';
 import '../model/movie.dart';
 
+import '../controller/main_page_data_controller.dart';
+
+final mainPageDataController =
+    StateNotifierProvider<MainPageDataController>((ref) {
+  return MainPageDataController();
+});
+
 // ref.watch использовать теперь
 class MainPage extends ConsumerWidget {
   double? _deviceHeight;
   double? _deviceWidth;
+
+  MainPageDataController? _mainPageDataController;
+  MainPageData? _mainPageData;
 
   late TextEditingController _searchTextFieldController;
 
@@ -22,6 +34,7 @@ class MainPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
+    _mainPageDataController = ref.watch(mainPageDataControllerProvider);
     _searchTextFieldController = TextEditingController();
 
     return _buildUI();
